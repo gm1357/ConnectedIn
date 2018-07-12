@@ -2,5 +2,6 @@ from django.urls import path
 from perfis import views
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='index'),
+    path('perfis/<int:perfil_id>', views.exibir, name='exibir')
 ]
