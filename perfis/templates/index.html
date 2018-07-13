@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="col-lg-12">
-
+    {% with total_de_convites=perfil_logado.convites_recebidos.count %}
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong>Todos os Perfis</strong>
@@ -19,5 +19,25 @@
             <p>Nenhum Perfil encontrado</p>
         {% endif %}
     </div>
+
+    <div class="panel panel-default">
+        {% if total_de_convites %}
+            <div class="panel-heading">
+                    <strong>Você tem {{ total_de_convites }} convite{{ total_de_convites|pluralize }} aguardando aprovação</strong>
+            </div>
+
+            <ul class="list-group">
+            {% for convite in perfil_logado.convites_recebidos.all %}
+                <li class="list-group-item">
+                    {{ convite.solicitante.nome }}
+                    <a href="#" class="pull-right">aceitar</a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhum convite recebido :(</p>
+        {% endif %}
+    </div>
+    {% endwith %}
 </div>
 {% endblock %}
